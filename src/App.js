@@ -1,22 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { tasks } from './data';
+import TodoForm from './Components/TodoForm';
+import TodoList from './Components/TodoList';
+import { useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
+  //use state to change value 
+  const [data, setData] = useState(tasks)
+  //change value of prev state
+  const addtask = (x) =>{
+    setData([...data,x])
+  }
+  // const remove = (x) =>{
+  //   console.log(x)
+  // }
+  //remove task
+ 
+  const remove = (x)=>{
+  setData(data.filter(el => el.id!==x))
+}
+  const change = (x) => {
+    console.log(x)
+  }
+   return (
+    <div className="todo-app">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <TodoForm addtask={addtask}/>
+        <TodoList tasks={data} remove={remove} change={change}/>
       </header>
     </div>
   );
